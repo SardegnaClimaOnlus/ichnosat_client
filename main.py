@@ -2,30 +2,32 @@
 import sys
 import http.client
 
-# define the function blocks
-def start():
-    print ("START command.\n")
-    hR = "/"
-    print("1")
+
+def request(hR):
     conn = http.client.HTTPConnection('localhost:5000')
-    print("2")
     conn.connect()
-    print("3")
-    conn.request("GET",hR)
-    print("4")
+    conn.request("GET", hR)
     response = conn.getresponse()
-    print("5")
     data = response.read()
-    print("6")
     print (data)
-    print("7")
     conn.close()
+
+def start_scientific_processor():
+    print ("START scientific-processor command.\n")
+    request("/start-scientific-processor")
+
+
+def notify_scientific_processor():
+    print ("START scientific-processor command.\n")
+    request("/notify-scientific-processor")
+
 
 def stop():
     print ("STOP command\n")
 
 # map the inputs to the function blocks
-options = {"start" : start,
+options = {"start-scientific-processor" : start_scientific_processor,
+           "notify-scientific-processor" : notify_scientific_processor,
            "stop" : stop
 }
 
